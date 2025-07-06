@@ -4,6 +4,12 @@ window.addEventListener("load", function () {
   const SavedList = JSON.parse(localStorage.getItem("ToDoList")) || [];
   list = SavedList;
   renderList();
+  
+  document.querySelector(".todo-input").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    addItem();
+  }
+});
 });
 
 function addItem() {
@@ -36,3 +42,5 @@ function del(index) {
   renderList();
   localStorage.setItem("ToDoList", JSON.stringify(list));
 }
+
+
