@@ -1,5 +1,11 @@
 let list = [];
 
+window.addEventListener('load', function(){
+  const SavedList = JSON.parse(localStorage.getItem('ToDoList'));
+  list = SavedList;
+  renderList();
+})
+
       function addItem() {
         let input = document.querySelector(".todo-input");
         let value = input.value.trim();
@@ -8,10 +14,12 @@ let list = [];
           alert("You can't add empty text");
           return;
         }
+        
 
         list.push(value);
         renderList();
         input.value = "";
+        localStorage.setItem('ToDoList', JSON.stringify(list));
       }
 
       function renderList() {
@@ -27,4 +35,5 @@ let list = [];
       function del(index) {
         list.splice(index, 1);
         renderList();
+        localStorage.setItem('ToDoList', JSON.stringify(list));
       }
