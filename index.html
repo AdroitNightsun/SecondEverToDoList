@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>to do list</title>
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Dancing+Script:wght@400..700&family=Edu+QLD+Hand:wght@400..700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        font-family: "poppins", sans-serif;
+        background-image: linear-gradient(
+          135deg,
+          #ffb224,
+          #e34ba9,
+          #0072f5,
+          #95f3d9
+        );
+        animation: animation-aagePeeche 10s ease infinite;
+        background-size: 300% 300%;
+      }
+
+      @keyframes animation-aagePeeche {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.267);
+        backdrop-filter: blur(50px);
+        padding: 2rem;
+        border-radius: 1rem;
+        box-shadow: 0px 0px 20px 0px rgb(0 0 0 / 57%);
+        width: 90%;
+        max-width: 500px;
+        /* font-family: "Caprasimo"; */
+      }
+
+      h1 {
+        color: #ffffff;
+        margin: 0 0 1.5rem 0;
+        font-size: 1.8rem;
+        text-align: center;
+        font-family: "Edu QLD Hand";
+      }
+
+      .input-group {
+        display: flex;
+        gap: 0.5rem;
+        justify-content: space-between;
+      }
+
+      input {
+        flex: 1;
+        padding: 0.8rem;
+        /* border: 2px solid #eee; */
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        max-width: 25rem;
+        transition: border-color 0.3s ease;
+        box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 42%);
+        /* font-family: "Caprasimo"; */
+        box-shadow:  inset 0px 0px 5px 0px rgb(0 0 0);
+      }
+
+      input:focus {
+        outline: none;
+        border-color: #764ba2;
+      }
+
+      .add-btn {
+        background: linear-gradient(-45deg, #ffb224, #e34ba9, #0072f5, #95f3d9);
+        color: white;
+        border: none;
+        padding: 0.8rem 1.5rem;
+        /* max-width: 6rem; */
+        border-radius: 0.5rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.7s ease;
+        animation: animation-aagePeeche 10s ease infinite;
+        background-size: 300% 300%;
+        box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 42%);
+        box-sizing: border-box;
+      }
+
+      .add-btn:hover {
+        box-shadow: 0px 0px 20px 3px #ffffff98;
+      }
+      #taskli {
+        list-style: none;
+        padding: 0;
+        margin-top: 1.5rem;
+      }
+
+      #taskli li {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 0.8rem;
+        color: #333;
+        font-size: 0.95rem;
+        border-left: 4px solid #667eea;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        display: flex;
+        justify-content: space-between;
+        box-shadow: inset 0px 0px 5px 0px rgb(0 0 0);
+      }
+
+      #taskli li:hover {
+        background: #fff;
+        transform: translateX(5px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      }
+      .del_btn {
+        border: none;
+        color: white;
+        font-weight: 600;
+        border-radius: 5px;
+        box-shadow: 0px 0px 5px 0px rgb(0 0 0 / 42%);
+        background-color: red;
+        cursor: pointer;
+        transition: all 0.4s ease;
+      }
+      .del_btn:hover {
+        background: rgb(148, 1, 1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>To-do list</h1>
+      <div class="input-group">
+        <input type="text" placeholder="Add a new task..." class="todo-input" />
+        <button class="add-btn" onclick="addItem()">+</button>
+      </div>
+      <ul id="taskli"></ul>
+    </div>
+
+    <script>
+      let list = [];
+
+      function addItem() {
+        let input = document.querySelector(".todo-input");
+        let value = input.value.trim();
+
+        if (value === "") {
+          alert("You can't add empty text");
+          return;
+        }
+
+        list.push(value);
+        renderList();
+        input.value = "";
+      }
+
+      function renderList() {
+        const taskli = document.getElementById("taskli");
+        taskli.innerHTML = list
+          .map(
+            (item, index) =>
+              `<li>${item}<button class="del_btn" onclick="del(${index})">Delete</button></li>`
+          )
+          .join("");
+      }
+
+      function del(index) {
+        list.splice(index, 1);
+        renderList();
+      }
+    </script>
+  </body>
+</html>
