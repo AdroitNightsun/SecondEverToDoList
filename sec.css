@@ -376,8 +376,9 @@ body {
 
 @media screen and (max-width: 480px){
   .container{
-    max-width: 320px;
-    
+    max-width: 290px;
+    padding-left: 1rem;
+    padding-right: 1rem;
   }
 }
 
